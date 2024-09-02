@@ -4,10 +4,13 @@ import Input from "../../components/input/Input";
 import Button from "../../components/buttons/Buttons";
 import { ResetSchema } from "../../models/Yup";
 import { RxCaretLeft } from "react-icons/rx";
+import { Link, useNavigate } from "react-router-dom";
 
 function ResetPassword() {
+  const navigate = useNavigate();
   const handleSubmit = (values: any) => {
     console.log(values, "values");
+    navigate("/confirmemail");
   };
   return (
     <div className="h-screen flex p-4 font-sora ">
@@ -16,10 +19,13 @@ function ResetPassword() {
       </div>
       <div className="w-1/2 h-full flex items-center justify-center">
         <div className="w-full max-w-[500px] flex flex-col">
-          <div className="flex items-center mb-3">
-            <RxCaretLeft color="#0EB622" size={18} />
-            <p className="text-forestGreen text-xs font-light">Cancel</p>
-          </div>
+          <Link to="/" className="cursor-pointer">
+            <div className="flex items-center mb-3">
+              <RxCaretLeft color="#0EB622" size={18} />
+              <p className="text-forestGreen text-xs font-light">Cancel</p>
+            </div>
+          </Link>
+
           <p className="mb-5 text-[26px] font-medium">Reset Password</p>
           <p className="text-sm font-light mb-5">
             Please enter the email associated with your account to reset your

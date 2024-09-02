@@ -4,6 +4,7 @@ import Button from "../../components/buttons/Buttons";
 import { Formik } from "formik";
 import { LoginSchema } from "../../models/Yup";
 import AuthBanner from "../../components/authBanner/AuthBanner";
+import { Link } from "react-router-dom";
 
 function SignIn() {
   const [seePassword, setSeePassword] = useState(false);
@@ -67,10 +68,11 @@ function SignIn() {
               </div>
             )}
           </Formik>
-
-          <p className="text-tanBrown mt-5 text-sm font-light underline self-center">
-            Forgot Password?
-          </p>
+          <Link className=" cursor-pointer self-center" to="/confirmemail">
+            <p className="text-tanBrown mt-5 text-sm font-light underline ">
+              Forgot Password?
+            </p>
+          </Link>
         </div>
       </div>
     </div>

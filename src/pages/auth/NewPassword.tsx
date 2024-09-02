@@ -5,14 +5,18 @@ import { useState } from "react";
 import Button from "../../components/buttons/Buttons";
 import { NewPasswordSchema } from "../../models/Yup";
 import { RxCaretLeft } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
 
 function NewPassword() {
   const [seePassword, setSeePassword] = useState(false);
   const [seeConfirmPassword, setSeeConfirmPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = (values: any) => {
     console.log(values);
+    navigate("/");
   };
+
   return (
     <div className="h-screen flex p-4 font-sora ">
       <div className="w-1/2 h-full  bg-deepBlue rounded-[80px] pl-16 pt-16">
@@ -77,7 +81,7 @@ function NewPassword() {
                 />
                 <Button
                   onClick={handleSubmit}
-                  title="Login"
+                  title="Reset"
                   isValid={isValid && dirty}
                 />
               </div>
