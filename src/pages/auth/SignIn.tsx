@@ -4,12 +4,14 @@ import Button from "../../components/buttons/Buttons";
 import { Formik } from "formik";
 import { LoginSchema } from "../../models/Yup";
 import AuthBanner from "../../components/authBanner/AuthBanner";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [seePassword, setSeePassword] = useState(false);
+  const navigate = useNavigate();
   const handleSubmit = (values: any) => {
     console.log(values);
+    navigate("/dashboard");
   };
   return (
     <div className="h-screen flex p-4 font-sora ">
