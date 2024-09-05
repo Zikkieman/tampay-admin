@@ -13,7 +13,7 @@ function AdminsRates() {
     <div className="flex w-full mb-0 gap-4 items-center">
       <div className="w-[70%]">
         <div className="flex justify-between mb-3">
-          <p>Active Admins</p>
+          <p className="font-medium">Active Admins</p>
           <div className="flex items-center">
             <p className="text-xs text-slateGray">View all</p>
             <PiCaretRightThin />
@@ -33,7 +33,7 @@ function AdminsRates() {
         <div className="flex justify-between mb-3">
           <div className="flex items-center">
             <RateIcon color="#F3A218" />
-            <p>Rates</p>
+            <p className="font-medium">Rates</p>
           </div>
           <div className="flex items-center">
             <p className="text-xs text-slateGray">View all</p>

@@ -2,6 +2,7 @@ import { metrics } from "../../../constants/Metrics";
 import AdminsRates from "../admins-rates/AdminsRates";
 import MetricsCard from "../cards/MetricsCard";
 import DashboardNav from "../dashNavbar/DashboardNav";
+import TxnVolume from "../txnVolume/TxnVolume";
 
 function Board() {
   return (
@@ -16,6 +17,9 @@ function Board() {
             </div>
           ))}
         </div>
+      </div>
+      <div className=" w-full px-4 ">
+        <TxnVolume />
       </div>
       <div className="mt-auto w-full px-4 ">
         <AdminsRates />
