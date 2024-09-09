@@ -1,13 +1,11 @@
 import { metrics } from "../../../constants/Metrics";
 import AdminsRates from "../admins-rates/AdminsRates";
 import MetricsCard from "../cards/MetricsCard";
-import DashboardNav from "../dashNavbar/DashboardNav";
 import TxnVolume from "../txnVolume/TxnVolume";
 
 function Board() {
   return (
     <div className="font-sora flex flex-col min-h-screen pb-5">
-      <DashboardNav />
       <div className="py-6 px-4">
         <p className="mb-3">Account Metrics</p>
         <div className="flex gap-3">
