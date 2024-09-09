@@ -4,13 +4,22 @@ import { sidebarMenu } from "../../../constants/sidebarMenu";
 import { LogoutIcon, SettingsIcon } from "../../icons";
 import Lady from "../../../assets/images/lady.png";
 import Verified from "../../../assets/images/verified.png";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar() {
   const [activeMenu, setActiveMenu] = useState("Dashboard");
   const [settingMenu, setSettingMenu] = useState(false);
+  const navigate = useNavigate();
+
+  // const handleMenuClick = (menuName: string) => {
+  //   setActiveMenu(menuName);
+  //   setSettingMenu(false);
+  // };
 
   const handleMenuClick = (menuName: string) => {
     setActiveMenu(menuName);
+    const path = menuName.toLowerCase();
+    navigate(`/dashboard/${path}`);
     setSettingMenu(false);
   };
 

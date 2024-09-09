@@ -1,5 +1,6 @@
-import Board from "../../components/dashComponent/board/Board";
+import DashboardNav from "../../components/dashComponent/dashNavbar/DashboardNav";
 import Sidebar from "../../components/dashComponent/sidebar/Sidebar";
+import { Outlet } from "react-router-dom";
 
 function Dashboard() {
   return (
@@ -8,7 +9,10 @@ function Dashboard() {
         <Sidebar />
       </div>
       <div className="w-full ">
-        <Board />
+        <DashboardNav />
+        <div>
+          <Outlet />
+        </div>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { transactions } from "../../../constants/txnData";
 import SelectInput, { CustomSelect } from "../../selectInput/Select";
 import { useState } from "react";
 import Chart from "../../chart/Chart";
+import { Link } from "react-router-dom";
 
 function TxnVolume() {
   const [selectedCurrency, setSelectCurrency] = useState<string>("All");
@@ -36,10 +37,10 @@ function TxnVolume() {
       <div className="w-[30%] h-full">
         <div className="flex justify-between mb-5">
           <p className="font-medium">Recent Transactions</p>
-          <div className="flex items-center">
+          <Link to="/dashboard/transactions" className="flex items-center">
             <p className="text-xs text-slateGray">View all</p>
             <PiCaretRightThin />
-          </div>
+          </Link>
         </div>
         <div className="border-grayBlue border shadow-sm flex flex-col gap-5 rounded-md p-5 ">
           {transactions.map((txn, i) => (
