@@ -3,12 +3,14 @@ import Pagination from "../../components/pagination/Pagination";
 import { useEffect, useState } from "react";
 import { transactions } from "../../constants/transaction";
 import { CiSearch } from "react-icons/ci";
-import { CustomSelect } from "../../components/selectInput/Select";
+// import { CustomSelect } from "../../components/selectInput/Select";
 import ActionTooltips from "../../components/tooltip/Tooltip";
+import FilterAccordion from "../../components/accordion/TxnFilter";
+import ExportAccordion from "../../components/accordion/ExportOption";
 
 const Transactions = () => {
   const [currentEntries, setCurrentEntries] = useState<typeof transactions>([]);
-  const time = ["Today", "Week", "Month", "Year"];
+  //   const time = ["Today", "Week", "Month", "Year"];
 
   useEffect(() => {
     if (transactions.length > 0) {
@@ -44,11 +46,11 @@ const Transactions = () => {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <div className="border border-coolGray px-2 py-2 text-gray-500 rounded-lg text-sm">
-            Export Transactions
+          <div>
+            <ExportAccordion />
           </div>
           <div>
-            <CustomSelect customOptions={time} onSelect={() => {}} />
+            <FilterAccordion />
           </div>
         </div>
       </div>
