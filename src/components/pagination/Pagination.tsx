@@ -4,10 +4,14 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 interface PaginationProps<T> {
   entries: T[];
   onPageChange: (entries: T[]) => void;
+  entriesPerPage: number;
 }
 
-const Pagination = <T,>({ entries, onPageChange }: PaginationProps<T>) => {
-  const entriesPerPage = 9;
+const Pagination = <T,>({
+  entries,
+  onPageChange,
+  entriesPerPage,
+}: PaginationProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalEntries = entries.length;
   const totalPages = Math.ceil(totalEntries / entriesPerPage);

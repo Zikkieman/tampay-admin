@@ -8,9 +8,9 @@ function Dashboard() {
       <div className="w-full max-w-[300px]">
         <Sidebar />
       </div>
-      <div className="w-full ">
+      <div className="flex flex-col w-full">
         <DashboardNav />
-        <div>
+        <div className="flex-grow">
           <Outlet />
         </div>
       </div>

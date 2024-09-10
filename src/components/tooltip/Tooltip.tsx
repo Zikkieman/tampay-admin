@@ -1,6 +1,7 @@
 import { styled } from "@mui/material/styles";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import { Divider } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -15,6 +16,13 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
 }));
 
 export default function ActionTooltips() {
+  const navigate = useNavigate();
+
+  const handleActionClick = () => {
+    navigate("assign");
+    console.log("called");
+  };
+
   return (
     <div>
       <HtmlTooltip
@@ -28,7 +36,10 @@ export default function ActionTooltips() {
               Download Reciept
             </p>
             {/* <Divider /> */}
-            <p className="py-2 px-4 text-sm text-[#344054] cursor-pointer">
+            <p
+              className="py-2 px-4 text-sm text-[#344054] cursor-pointer"
+              onClick={handleActionClick}
+            >
               Assign
             </p>
           </div>

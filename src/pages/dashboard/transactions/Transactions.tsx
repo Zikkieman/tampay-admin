@@ -1,12 +1,13 @@
 import { HiArrowLongDown, HiArrowLongUp } from "react-icons/hi2";
-import Pagination from "../../components/pagination/Pagination";
+import Pagination from "../../../components/pagination/Pagination";
 import { useEffect, useState } from "react";
-import { transactions } from "../../constants/transaction";
+import { transactions } from "../../../constants/transaction";
 import { CiSearch } from "react-icons/ci";
 // import { CustomSelect } from "../../components/selectInput/Select";
-import ActionTooltips from "../../components/tooltip/Tooltip";
-import FilterAccordion from "../../components/accordion/TxnFilter";
-import ExportAccordion from "../../components/accordion/ExportOption";
+import ActionTooltips from "../../../components/tooltip/Tooltip";
+import FilterAccordion from "../../../components/accordion/TxnFilter";
+import ExportAccordion from "../../../components/accordion/ExportOption";
+import { Outlet } from "react-router-dom";
 
 const Transactions = () => {
   const [currentEntries, setCurrentEntries] = useState<typeof transactions>([]);
@@ -139,8 +140,13 @@ const Transactions = () => {
 
       {/* Pagination */}
       <div className="flex w-full justify-center mt-5">
-        <Pagination entries={transactions} onPageChange={handlePageChange} />
+        <Pagination
+          entriesPerPage={9}
+          entries={transactions}
+          onPageChange={handlePageChange}
+        />
       </div>
+      <Outlet />
     </div>
   );
 };

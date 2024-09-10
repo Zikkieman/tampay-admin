@@ -7,6 +7,7 @@ import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import ListDivider from "@mui/joy/ListDivider";
 import Select, { SelectOption } from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
+import Search from "../searchInput/Search";
 
 type SelectProps = {
   customOptions: string[];
@@ -43,9 +44,16 @@ type PropsType = {
     src?: string;
   }[];
   onSelect: (value: string) => void;
+  search?: boolean;
+  placeholder?: string;
 };
 
-export default function SelectInput({ options, onSelect }: PropsType) {
+export default function SelectInput({
+  options,
+  onSelect,
+  search,
+  placeholder = "",
+}: PropsType) {
   function renderValue(option: SelectOption<string> | null) {
     if (!option) {
       return null;
@@ -84,15 +92,27 @@ export default function SelectInput({ options, onSelect }: PropsType) {
           },
         },
       }}
-      sx={{ "--ListItemDecorator-size": "44px", minWidth: 240 }}
+      sx={{ "--ListItemDecorator-size": "44px", minWidth: 250 }}
       renderValue={renderValue}
+      placeholder={placeholder}
     >
+      {search && (
+        <div className="flex gap-3 items-center py-2 px-2">
+          <p>Admins</p>
+          <Search placeholder="Search" />
+        </div>
+      )}
+
       {options.map((option, index) => (
         <React.Fragment key={option.value}>
           {index !== 0 ? (
             <ListDivider role="none" inset="startContent" />
           ) : null}
-          <Option value={option.value} label={option.label}>
+          <Option
+            value={option.value}
+            label={option.label}
+            sx={{ paddingX: 2 }}
+          >
             <ListItemDecorator>
               <Avatar size="sm" src={option.src} />
             </ListItemDecorator>
