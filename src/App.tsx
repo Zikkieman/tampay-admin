@@ -12,8 +12,9 @@ import SignIn from "./pages/auth/SignIn";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Transactions from "./pages/dashboard/transactions/Transactions";
 import Board from "./components/dashComponent/board/Board";
-// import Assign from "./pages/dashboard/transactions/Assign";
+import Assign from "./pages/dashboard/transactions/Assign";
 import User from "./pages/dashboard/user/User";
+import UserDetails from "./pages/dashboard/user/UserDetails";
 
 function App() {
   return (
@@ -27,9 +28,8 @@ function App() {
           <Route path="dashboard" element={<Board />} />
           <Route path="transactions" element={<Transactions />} />
           <Route path="users" element={<User />} />
-          {/* <Route path="transactions" element={<Transactions />}> */}
-          {/* <Route path="assign" element={<Assign />} /> */}
-          {/* </Route> */}
+          <Route path="users/:id" element={<UserDetails />} />
+          <Route path="transactions/assign" element={<Assign />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
           <Route path="" element={<Navigate to="/dashboard/dashboard" />} />
         </Route>

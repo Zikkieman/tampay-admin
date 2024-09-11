@@ -3,11 +3,12 @@ import Pagination from "../../../components/pagination/Pagination";
 import Search from "../../../components/searchInput/Search";
 import { userDetails } from "../../../constants/users";
 import UsersAccordion from "../../../components/accordion/UsersAccordion";
+import { useNavigate } from "react-router-dom";
 
 function User() {
   const [currentEntries, setCurrentEntries] = useState<typeof userDetails>([]);
   //   const time = ["Today", "Week", "Month", "Year"];
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (userDetails.length > 0) {
       setCurrentEntries(userDetails.slice(0, 10)); // Set first 10 entries
@@ -16,6 +17,10 @@ function User() {
 
   const handlePageChange = (entries: typeof userDetails) => {
     setCurrentEntries(entries);
+  };
+
+  const NavUserId = (id: string) => {
+    navigate(`/dashboard/users/${id}`);
   };
 
   return (
@@ -54,7 +59,8 @@ function User() {
               {currentEntries.map((user) => (
                 <tr
                   key={user.id}
-                  className="bg-white border-b hover:bg-gray-50"
+                  className="bg-white border-b hover:bg-gray-50 cursor-pointer"
+                  onClick={() => NavUserId(user.id)}
                 >
                   <td className="px-6 py-4">{user.id}</td>
                   <td className="px-6 py-4">{user.name}</td>
@@ -92,7 +98,6 @@ function User() {
             onPageChange={handlePageChange}
           />
         </div>
-        {/* <Outlet /> */}
       </div>
     </div>
   );
