@@ -40,7 +40,7 @@ function UserLogs() {
                     className={` rounded-full w-fit px-2 text-center ${
                       user.status === "Failed"
                         ? "bg-[#FBEAE9] text-[#CB1A14]"
-                        : user.status === "Verified"
+                        : user.status === "Successful"
                         ? "bg-[#EFFEF0] text-[#116A1D]"
                         : "bg-[#FEF6E7] text-[#F3A218]"
                     }`}
