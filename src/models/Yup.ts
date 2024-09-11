@@ -36,3 +36,14 @@ export const NewPasswordSchema = yup.object().shape({
     .oneOf([yup.ref("password")], "Passwords must match")
     .required("Confirm Password is required"),
 });
+
+export const BanSchema = yup.object().shape({
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{6,}$/,
+      "Password must contain one uppercase letter, one lowercase letter, one number, and one special character"
+    )
+    .required("Password is required"),
+});

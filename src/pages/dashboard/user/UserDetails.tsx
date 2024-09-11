@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Lady from "../../../assets/images/lady.png";
 import Back from "../../../components/back/Back";
 import AccountActivity from "../../../components/userComponent/AccountActivity";
@@ -6,6 +7,13 @@ import UserLogs from "../../../components/userComponent/UserLogs";
 import UserRecentTxn from "../../../components/userComponent/UserRecentTxn";
 
 function UserDetails() {
+  const navigate = useNavigate();
+  const navToBan = () => {
+    navigate("/dashboard/users/ban");
+  };
+  const navToLogoutUser = () => {
+    navigate("/dashboard/users/logoutuser");
+  };
   return (
     <div className="font-sora px-10">
       <div className="my-5">
@@ -20,10 +28,16 @@ function UserDetails() {
           <p className=" text-[#116A1D]">Account Status: Active</p>
         </div>
         <div className="flex gap-3 items-center">
-          <button className="bg-grayBlue border border-pale px-3 py-3 rounded-xl text-[#344054] text-sm">
+          <button
+            className="bg-grayBlue border border-pale px-3 py-3 rounded-xl text-[#344054] text-sm"
+            onClick={navToBan}
+          >
             Ban Account
           </button>
-          <button className="bg-grayBlue border border-pale px-3 py-3 rounded-xl text-[#344054] text-sm">
+          <button
+            className="bg-grayBlue border border-pale px-3 py-3 rounded-xl text-[#344054] text-sm"
+            onClick={navToLogoutUser}
+          >
             Log Userout
           </button>
         </div>

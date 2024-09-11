@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 function Dashboard() {
   return (
     <div className="flex w-full min-h-screen">
-      <div className="w-full max-w-[300px]">
+      <div className="w-full max-w-[300px] h-screen">
         <Sidebar />
       </div>
       <div className="flex flex-col w-full">
