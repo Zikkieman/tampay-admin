@@ -55,7 +55,6 @@ function User() {
               </tr>
             </thead>
             <tbody>
-              {/* Use currentEntries for the table data */}
               {currentEntries.map((user) => (
                 <tr
                   key={user.id}

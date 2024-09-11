@@ -1,65 +1,34 @@
-import { HiArrowLongDown, HiArrowLongUp } from "react-icons/hi2";
-import Pagination from "../../../components/pagination/Pagination";
 import { useEffect, useState } from "react";
-import { transactions } from "../../../constants/transaction";
-import { CiSearch } from "react-icons/ci";
-// import { CustomSelect } from "../../components/selectInput/Select";
-import ActionTooltips from "../../../components/tooltip/Tooltip";
-import FilterAccordion from "../../../components/accordion/TxnFilter";
-import ExportAccordion from "../../../components/accordion/ExportOption";
+import Pagination from "../pagination/Pagination";
+// import ActionTooltips from "../tooltip/Tooltip";
+import { HiArrowLongDown, HiArrowLongUp } from "react-icons/hi2";
+import { userTxn } from "../../constants/userTxn";
 
-const Transactions = () => {
-  const [currentEntries, setCurrentEntries] = useState<typeof transactions>([]);
+function UserRecentTxn() {
+  const [currentEntries, setCurrentEntries] = useState<typeof userTxn>([]);
   //   const time = ["Today", "Week", "Month", "Year"];
 
   useEffect(() => {
-    if (transactions.length > 0) {
-      setCurrentEntries(transactions.slice(0, 10)); // Set first 10 entries
+    if (userTxn.length > 0) {
+      setCurrentEntries(userTxn.slice(0, 10)); // Set first 10 entries
     }
   }, []);
 
-  const handlePageChange = (entries: typeof transactions) => {
+  const handlePageChange = (entries: typeof userTxn) => {
     setCurrentEntries(entries);
   };
 
   return (
-    <div className="p-4 font-sora">
-      <div className="flex justify-between items-center my-10">
-        <div className="flex items-center gap-2 ">
-          <div>
-            <p className="text-base font-medium text-darkNavy">
-              All Transactions
-            </p>
-          </div>
-          <div className="flex border w-[350px] border-coolGray h-[35px] rounded-lg items-center px-3 gap-1">
-            <div>
-              <CiSearch size={20} className="text-coolGray" />
-            </div>
-            <div className="w-full font-sora">
-              <input
-                name=""
-                id=""
-                className=" w-full bg-transparent placeholder:text-coolGray placeholder:font-light text-sm border-none outline-none"
-                placeholder="Search by Tran ID and Account Number"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <div>
-            <ExportAccordion />
-          </div>
-          <div>
-            <FilterAccordion />
-          </div>
-        </div>
-      </div>
-      <div className="relative w-full overflow-x-auto z-[50] scroll-smooth">
+    <div className="p-4 font-sora my-10 bg-white shadow-lg rounded-lg">
+      <div className="relative w-full overflow-x-auto z-[50] scroll-smooth ">
+        <p className="text-base font-normal text-[#344054] mb-5">
+          Recent Transactions
+        </p>
         <table className="w-full text-sm text-center text-gray-500">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th className="px-6 py-3">Transaction ID</th>
-              <th className="px-6 py-3">Account Number/Bank</th>
+              {/* <th className="px-6 py-3">Account Number/Bank</th> */}
               <th className="px-6 py-3">Date</th>
               <th className="px-6 py-3">Bank</th>
               <th className="px-6 py-3">Payment Type</th>
@@ -67,7 +36,7 @@ const Transactions = () => {
               <th className="px-6 py-3">Payment Method</th>
               <th className="px-6 py-3">Status</th>
               <th className="px-6 py-3">Amount</th>
-              <th className="px-6 py-3">Actions</th>
+              {/* <th className="px-6 py-3">Actions</th> */}
             </tr>
           </thead>
           <tbody>
@@ -78,18 +47,18 @@ const Transactions = () => {
                 className="bg-white border-b hover:bg-gray-50"
               >
                 <td className="px-6 py-4">{transaction.id}</td>
-                <td className="px-6 py-4">
+                {/* <td className="px-6 py-4">
                   {transaction.accountNumber}
                   <br />
                   {transaction.bank}
-                </td>
+                </td> */}
                 <td className="px-6 py-4">
                   {transaction.date}
                   <br />
                   {transaction.time}
                 </td>
                 <td className="px-6 py-4">{transaction.bank}</td>
-                <td className="px-6 py-4 flex items-center gap-2">
+                <td className="px-6 py-4 flex items-center gap-2 justify-center">
                   <div
                     className={`w-[35px] h-[35px] rounded-full flex items-center justify-center ${
                       transaction.arrowType !== "down"
@@ -128,9 +97,9 @@ const Transactions = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4">{transaction.amount}</td>
-                <td className="">
+                {/* <td className="">
                   <ActionTooltips />
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>
@@ -141,12 +110,12 @@ const Transactions = () => {
       <div className="flex w-full justify-center mt-5">
         <Pagination
           entriesPerPage={9}
-          entries={transactions}
+          entries={userTxn}
           onPageChange={handlePageChange}
         />
       </div>
     </div>
   );
-};
+}
 
-export default Transactions;
+export default UserRecentTxn;

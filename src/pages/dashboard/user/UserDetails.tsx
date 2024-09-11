@@ -1,7 +1,9 @@
-import { Outlet } from "react-router-dom";
 import Lady from "../../../assets/images/lady.png";
 import Back from "../../../components/back/Back";
 import AccountActivity from "../../../components/userComponent/AccountActivity";
+import UserInfo from "../../../components/userComponent/UserInfo";
+import UserLogs from "../../../components/userComponent/UserLogs";
+import UserRecentTxn from "../../../components/userComponent/UserRecentTxn";
 
 function UserDetails() {
   return (
@@ -27,9 +29,19 @@ function UserDetails() {
         </div>
       </div>
       <div>
-        <AccountActivity />
+        <div>
+          <AccountActivity />
+        </div>
+        <div>
+          <UserInfo />
+        </div>
+        <div>
+          <UserRecentTxn />
+        </div>
+        <div>
+          <UserLogs />
+        </div>
       </div>
-      <Outlet />
     </div>
   );
 }
