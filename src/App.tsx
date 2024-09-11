@@ -17,6 +17,7 @@ import User from "./pages/dashboard/user/User";
 import UserDetails from "./pages/dashboard/user/UserDetails";
 import BanUser from "./components/userComponent/BanUser";
 import LogoutUser from "./components/userComponent/LogoutUser";
+import Admins from "./pages/dashboard/admins/Admins";
 
 function App() {
   return (
@@ -29,11 +30,12 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="dashboard" element={<Board />} />
           <Route path="transactions" element={<Transactions />} />
+          <Route path="transactions/assign" element={<Assign />} />
+          <Route path="admins" element={<Admins />} />
           <Route path="users" element={<User />} />
           <Route path="users/:id" element={<UserDetails />} />
           <Route path="users/ban" element={<BanUser />} />
           <Route path="users/logoutuser" element={<LogoutUser />} />
-          <Route path="transactions/assign" element={<Assign />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
           <Route path="" element={<Navigate to="/dashboard/dashboard" />} />
         </Route>
