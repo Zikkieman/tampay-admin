@@ -21,7 +21,7 @@ export function CustomSelect({ customOptions, onSelect }: SelectProps) {
         <CiFilter className="text-gray-500" size={22} />
       </div>
       <select
-        onChange={(e) => onSelect(e.target.value)}
+        onChange={(e: any) => onSelect(e.target.value)}
         className="block appearance-none w-full bg-slate-50  text-slateGray text-[14px] py-2 px- pr-8  leading-tight focus:outline-none focus:shadow-outline"
       >
         {customOptions.map((option, index) => (

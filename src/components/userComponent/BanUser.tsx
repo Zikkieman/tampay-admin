@@ -18,6 +18,7 @@ function BanUser() {
   const navBack = () => {
     navigate(-1);
   };
+
   return (
     <div className="flex w-full items-center justify-center h-full border font-sora">
       <div className=" w-full max-w-[600px]">
