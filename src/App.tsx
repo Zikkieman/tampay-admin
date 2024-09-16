@@ -25,6 +25,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Services from "./pages/dashboard/services/Services";
 import Rates from "./pages/dashboard/rates/Rates";
 import UpdateRate from "./pages/dashboard/rates/UpdateRate";
+import Reports from "./pages/dashboard/reports/Reports";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
             <Route path="services" element={<Services />} />
             <Route path="rates" element={<Rates />} />
             <Route path="rates/update" element={<UpdateRate />} />
+            <Route path="reports" element={<Reports />} />
             <Route path="*" element={<Navigate to="/dashboard" />} />
             <Route path="" element={<Navigate to="/dashboard/dashboard" />} />
           </Route>
