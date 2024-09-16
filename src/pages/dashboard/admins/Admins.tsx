@@ -5,9 +5,11 @@ import Button from "../../../components/buttons/Buttons";
 import FilterAccordion from "../../../components/accordion/TxnFilter";
 import Pagination from "../../../components/pagination/Pagination";
 import { staffList } from "../../../constants/staffList";
+import { useNavigate } from "react-router-dom";
 
 function Admins() {
   const [currentEntries, setCurrentEntries] = useState<typeof staffList>([]);
+  const navigate = useNavigate();
   //   const time = ["Today", "Week", "Month", "Year"];
 
   useEffect(() => {
@@ -18,6 +20,10 @@ function Admins() {
 
   const handlePageChange = (entries: typeof staffList) => {
     setCurrentEntries(entries);
+  };
+
+  const navToAdminProfile = (id: string) => {
+    navigate(`/dashboard/admins/${id}`);
   };
 
   return (
@@ -33,7 +39,11 @@ function Admins() {
 
           <div className="flex items-center gap-2 justify-center ">
             <div className="flex  w-[200px] rounded-lg items-center gap-1 mt-[-40px]">
-              <Button title="Add Admin" isValid />
+              <Button
+                title="Add Admin"
+                isValid
+                onClick={() => navigate("/dashboard/admins/addadmin")}
+              />
             </div>
             <div>
               <FilterAccordion />
@@ -58,7 +68,8 @@ function Admins() {
               {currentEntries.map((staff) => (
                 <tr
                   key={staff.id}
-                  className="bg-white border-b hover:bg-gray-50"
+                  className="bg-white border-b hover:bg-gray-50 cursor-pointer"
+                  onClick={() => navToAdminProfile(staff.id)}
                 >
                   <td className="px-6 py-4">{staff.id}</td>
                   <td className="px-6 py-4">{staff.fullName}</td>

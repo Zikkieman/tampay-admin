@@ -5,7 +5,7 @@ import TxnVolume from "../txnVolume/TxnVolume";
 
 function Board() {
   return (
-    <div className="font-sora flex flex-col min-h-screen pb-5">
+    <div className="font-sora flex flex-col">
       <div className="py-6 px-4">
         <p className="mb-3">Account Metrics</p>
         <div className="flex gap-3">
@@ -16,10 +16,10 @@ function Board() {
           ))}
         </div>
       </div>
-      <div className=" w-full px-4 ">
+      <div className=" w-full px-4 mb-5">
         <TxnVolume />
       </div>
-      <div className="mt-auto w-full px-4 ">
+      <div className=" w-full px-4 mt-10">
         <AdminsRates />
       </div>
     </div>
