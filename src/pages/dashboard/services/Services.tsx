@@ -9,16 +9,27 @@ function Services() {
   const [currentEntries, setCurrentEntries] = useState<typeof serviceEntries>(
     []
   );
+  const [filteredEntries, setFilteredEntries] = useState<typeof serviceEntries>(
+    []
+  );
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     if (serviceEntries.length > 0) {
-      setCurrentEntries(serviceEntries.slice(0, 10));
+      setFilteredEntries(serviceEntries);
     }
   }, []);
 
-  const handlePageChange = (entries: typeof serviceEntries) => {
-    setCurrentEntries(entries);
-  };
+  useEffect(() => {
+    if (searchQuery === "") {
+      setFilteredEntries(serviceEntries);
+    } else {
+      const filtered = serviceEntries.filter((serviceEntries) =>
+        serviceEntries.apiName.includes(searchQuery)
+      );
+      setFilteredEntries(filtered);
+    }
+  }, [searchQuery]);
 
   return (
     <div className="px-4 py-5 font-sora">
@@ -26,7 +37,7 @@ function Services() {
         <div className="flex gap-3 items-center w-full max-w-[500px]">
           <p className="text-lg font-medium text-darkNavy">Services</p>
           <div className="w-full">
-            <Search placeholder="Search by name" />
+            <Search placeholder="Search by name" onSearch={setSearchQuery} />
           </div>
         </div>
         <div className="flex items-center gap-5">
@@ -91,8 +102,8 @@ function Services() {
       <div className="flex w-full justify-center mt-5">
         <Pagination
           entriesPerPage={9}
-          entries={serviceEntries}
-          onPageChange={handlePageChange}
+          entries={filteredEntries}
+          onPageChange={setCurrentEntries}
         />
       </div>
     </div>

@@ -26,6 +26,9 @@ import Services from "./pages/dashboard/services/Services";
 import Rates from "./pages/dashboard/rates/Rates";
 import UpdateRate from "./pages/dashboard/rates/UpdateRate";
 import Reports from "./pages/dashboard/reports/Reports";
+import SuperAdmin from "./pages/dashboard/admins/SuperAdmin";
+import ChangeRole from "./pages/dashboard/admins/ChangeRole";
+import DeleteAdmin from "./pages/dashboard/admins/DeleteAdmin";
 
 function App() {
   return (
@@ -43,6 +46,9 @@ function App() {
             <Route path="admins" element={<Admins />} />
             <Route path="admins/:id" element={<AdminProfile />} />
             <Route path="admins/addadmin" element={<AddAdmin />} />
+            <Route path="admins/superadmin" element={<SuperAdmin />} />
+            <Route path="admins/changeadmin" element={<ChangeRole />} />
+            <Route path="admins/deleteadmin" element={<DeleteAdmin />} />
             <Route path="users" element={<User />} />
             <Route path="users/:id" element={<UserDetails />} />
             <Route path="users/ban" element={<BanUser />} />
