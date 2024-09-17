@@ -2,47 +2,48 @@ import { HiArrowLongDown, HiArrowLongUp } from "react-icons/hi2";
 import Pagination from "../../../components/pagination/Pagination";
 import { useEffect, useState } from "react";
 import { transactions } from "../../../constants/transaction";
-import { CiSearch } from "react-icons/ci";
 // import { CustomSelect } from "../../components/selectInput/Select";
 import ActionTooltips from "../../../components/tooltip/Tooltip";
 import FilterAccordion from "../../../components/accordion/TxnFilter";
 import ExportAccordion from "../../../components/accordion/ExportOption";
+import Search from "../../../components/searchInput/Search";
 
 const Transactions = () => {
   const [currentEntries, setCurrentEntries] = useState<typeof transactions>([]);
-  //   const time = ["Today", "Week", "Month", "Year"];
+  const [filteredEntries, setFilteredEntries] = useState<typeof transactions>(
+    []
+  );
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     if (transactions.length > 0) {
-      setCurrentEntries(transactions.slice(0, 10)); // Set first 10 entries
+      setFilteredEntries(transactions);
     }
   }, []);
 
-  const handlePageChange = (entries: typeof transactions) => {
-    setCurrentEntries(entries);
-  };
+  useEffect(() => {
+    if (searchQuery === "") {
+      setFilteredEntries(transactions);
+    } else {
+      const filtered = transactions.filter(
+        (transaction) =>
+          transaction.id.includes(searchQuery) ||
+          transaction.accountNumber.includes(searchQuery)
+      );
+      setFilteredEntries(filtered);
+    }
+  }, [searchQuery]);
 
   return (
-    <div className="p-4 font-sora">
-      <div className="flex justify-between items-center my-10">
-        <div className="flex items-center gap-2 ">
-          <div>
-            <p className="text-base font-medium text-darkNavy">
-              All Transactions
-            </p>
-          </div>
-          <div className="flex border w-[350px] border-coolGray h-[35px] rounded-lg items-center px-3 gap-1">
-            <div>
-              <CiSearch size={20} className="text-coolGray" />
-            </div>
-            <div className="w-full font-sora">
-              <input
-                name=""
-                id=""
-                className=" w-full bg-transparent placeholder:text-coolGray placeholder:font-light text-sm border-none outline-none"
-                placeholder="Search by Tran ID and Account Number"
-              />
-            </div>
+    <div className="px-4 font-sora">
+      <div className="flex justify-between items-center my-5">
+        <div className="flex gap-3 items-center w-full max-w-[600px]">
+          <p className="text-lg font-medium text-darkNavy">All Transactions</p>
+          <div className="w-full max-w-[400px]">
+            <Search
+              placeholder="Search by Tran ID and Account Number"
+              onSearch={setSearchQuery}
+            />
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -71,8 +72,7 @@ const Transactions = () => {
             </tr>
           </thead>
           <tbody>
-            {/* Use currentEntries for the table data */}
-            {currentEntries.map((transaction) => (
+            {currentEntries.slice(0, 10).map((transaction) => (
               <tr
                 key={transaction.id}
                 className="bg-white border-b hover:bg-gray-50"
@@ -103,7 +103,6 @@ const Transactions = () => {
                       <HiArrowLongUp className="text-emeraldGreen" size={18} />
                     )}
                   </div>
-
                   {transaction.paymentType}
                 </td>
                 <td className="px-6 py-4">{transaction.currency}</td>
@@ -137,12 +136,11 @@ const Transactions = () => {
         </table>
       </div>
 
-      {/* Pagination */}
-      <div className="flex w-full justify-center mt-5">
+      <div className="flex w-full justify-center mt-2">
         <Pagination
-          entriesPerPage={9}
-          entries={transactions}
-          onPageChange={handlePageChange}
+          entriesPerPage={10}
+          entries={filteredEntries}
+          onPageChange={setCurrentEntries}
         />
       </div>
     </div>

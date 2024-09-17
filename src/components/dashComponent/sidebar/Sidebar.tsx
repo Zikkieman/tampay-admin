@@ -1,35 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../../../assets/images/logo.png";
 import { sidebarMenu } from "../../../constants/sidebarMenu";
 import { LogoutIcon, SettingsIcon } from "../../icons";
 import Lady from "../../../assets/images/lady.png";
 import Verified from "../../../assets/images/verified.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Sidebar() {
-  const [activeMenu, setActiveMenu] = useState("Dashboard");
-  const [settingMenu, setSettingMenu] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const [activeMenu, setActiveMenu] = useState(""); // Initialize as empty
+  const [settingMenu, setSettingMenu] = useState(false);
 
-  // const handleMenuClick = (menuName: string) => {
-  //   setActiveMenu(menuName);
-  //   setSettingMenu(false);
-  // };
-
+  // Function to handle menu click
   const handleMenuClick = (menuName: string) => {
-    setActiveMenu(menuName);
     const path = menuName.toLowerCase();
+    setActiveMenu(menuName);
     navigate(`/dashboard/${path}`);
     setSettingMenu(false);
   };
 
+  // Function to handle settings menu click and change the URL
   const handleSettingMenu = () => {
     setSettingMenu(!settingMenu);
-    setActiveMenu("");
+    setActiveMenu("Settings");
+    navigate("/dashboard/settings");
   };
 
+  // Function to handle logout click
+  const handleLogout = () => {
+    navigate("/dashboard/logout");
+  };
+
+  // Sync active menu with URL on page load/refresh
+  useEffect(() => {
+    const path = location.pathname.split("/")[2]; // Extract the active menu from the URL
+    setActiveMenu(
+      path ? path.charAt(0).toUpperCase() + path.slice(1) : "Dashboard"
+    );
+  }, [location.pathname]); // Trigger this whenever the URL changes
+
   return (
-    <div className="h-full bg-darkNavy flex flex-col pt-5  font-sora">
+    <div className="h-full bg-darkNavy flex flex-col pt-5 font-sora">
       <div>
         <img src={Logo} alt="logo" className="h-[40px] ml-5" />
       </div>
@@ -47,13 +59,20 @@ function Sidebar() {
                 color: activeMenu === menu.menu ? "#18CF2D" : "#98A2B3",
               })}
             </p>
-            <p
-              className={`text-sm font-light ${
-                activeMenu === menu.menu ? "text-[#F0F2F5]" : "text-[#98A2B3]"
-              }`}
-            >
-              {menu.menu}
-            </p>
+            <div className="flex w-full items-center justify-between gap-3">
+              <p
+                className={`text-sm font-light ${
+                  activeMenu === menu.menu ? "text-[#F0F2F5]" : "text-[#98A2B3]"
+                }`}
+              >
+                {menu.menu}
+              </p>
+              {menu.menu === "Reports" && (
+                <p className="text-black text-sm mr-3 bg-[#F5B546] px-2 py-0 rounded-full">
+                  10
+                </p>
+              )}
+            </div>
           </div>
         ))}
       </div>
@@ -83,7 +102,9 @@ function Sidebar() {
             </div>
             <p className="text-sm text-white">Jeffrey</p>
           </div>
-          <LogoutIcon />
+          <div onClick={handleLogout} className="cursor-pointer">
+            <LogoutIcon />
+          </div>
         </div>
       </div>
     </div>

@@ -7,17 +7,31 @@ import { useNavigate } from "react-router-dom";
 
 function User() {
   const [currentEntries, setCurrentEntries] = useState<typeof userDetails>([]);
-  //   const time = ["Today", "Week", "Month", "Year"];
+  const [filteredEntries, setFilteredEntries] = useState<typeof userDetails>(
+    []
+  );
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
   const navigate = useNavigate();
+
   useEffect(() => {
     if (userDetails.length > 0) {
-      setCurrentEntries(userDetails.slice(0, 10)); // Set first 10 entries
+      setFilteredEntries(userDetails);
     }
   }, []);
 
-  const handlePageChange = (entries: typeof userDetails) => {
-    setCurrentEntries(entries);
-  };
+  useEffect(() => {
+    if (searchQuery === "") {
+      setFilteredEntries(userDetails);
+    } else {
+      const filtered = userDetails.filter(
+        (userDetails) =>
+          userDetails.id.includes(searchQuery) ||
+          userDetails.email.includes(searchQuery)
+      );
+      setFilteredEntries(filtered);
+    }
+  }, [searchQuery]);
 
   const NavUserId = (id: string) => {
     navigate(`/dashboard/users/${id}`);
@@ -32,7 +46,10 @@ function User() {
               <p className="text-base font-medium text-darkNavy">All Users</p>
             </div>
             <div className="flex  w-[350px] h-[35px] rounded-lg items-center px-3 gap-1">
-              <Search placeholder="Search by name or account number" />
+              <Search
+                placeholder="Search by name or email"
+                onSearch={setSearchQuery}
+              />
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -93,8 +110,8 @@ function User() {
         <div className="flex w-full justify-center mt-5">
           <Pagination
             entriesPerPage={10}
-            entries={userDetails}
-            onPageChange={handlePageChange}
+            entries={filteredEntries}
+            onPageChange={setCurrentEntries}
           />
         </div>
       </div>

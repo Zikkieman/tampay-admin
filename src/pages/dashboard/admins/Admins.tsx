@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { transactions } from "../../../constants/transaction";
 import Search from "../../../components/searchInput/Search";
 import Button from "../../../components/buttons/Buttons";
 import FilterAccordion from "../../../components/accordion/TxnFilter";
@@ -9,21 +8,35 @@ import { useNavigate } from "react-router-dom";
 
 function Admins() {
   const [currentEntries, setCurrentEntries] = useState<typeof staffList>([]);
+  const [filteredEntries, setFilteredEntries] = useState<typeof staffList>([]);
   const navigate = useNavigate();
-  //   const time = ["Today", "Week", "Month", "Year"];
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
-    if (transactions.length > 0) {
-      setCurrentEntries(staffList.slice(0, 10)); // Set first 10 entries
+    if (staffList.length > 0) {
+      setFilteredEntries(staffList);
     }
   }, []);
 
-  const handlePageChange = (entries: typeof staffList) => {
-    setCurrentEntries(entries);
-  };
+  useEffect(() => {
+    if (searchQuery === "") {
+      setFilteredEntries(staffList);
+    } else {
+      const filtered = staffList.filter(
+        (staffList) =>
+          staffList.id.includes(searchQuery) ||
+          staffList.fullName.includes(searchQuery)
+      );
+      setFilteredEntries(filtered);
+    }
+  }, [searchQuery]);
 
   const navToAdminProfile = (id: string) => {
     navigate(`/dashboard/admins/${id}`);
+  };
+
+  const navToSuperAdmin = () => {
+    navigate(`/dashboard/admins/superadmin`);
   };
 
   return (
@@ -33,11 +46,17 @@ function Admins() {
           <div className="flex gap-2 items-center">
             <p className="text-base font-medium text-darkNavy">All Admins</p>
             <div className="flex  w-[350px] h-[35px] rounded-lg items-center px-3 gap-1">
-              <Search placeholder="Search by staff ID or name" />
+              <Search
+                placeholder="Search by staff ID or name"
+                onSearch={setSearchQuery}
+              />
             </div>
           </div>
 
           <div className="flex items-center gap-2 justify-center ">
+            <div className="flex  w-[200px] rounded-lg items-center gap-1 mt-[-40px]">
+              <Button title="Super Admin" isValid onClick={navToSuperAdmin} />
+            </div>
             <div className="flex  w-[200px] rounded-lg items-center gap-1 mt-[-40px]">
               <Button
                 title="Add Admin"
@@ -121,8 +140,8 @@ function Admins() {
         <div className="flex w-full justify-center mt-5">
           <Pagination
             entriesPerPage={11}
-            entries={staffList}
-            onPageChange={handlePageChange}
+            entries={filteredEntries}
+            onPageChange={setCurrentEntries}
           />
         </div>
       </div>

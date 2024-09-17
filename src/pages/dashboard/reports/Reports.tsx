@@ -8,16 +8,29 @@ function Reports() {
   const [currentEntries, setCurrentEntries] = useState<typeof reportEntries>(
     []
   );
+  const [filteredEntries, setFilteredEntries] = useState<typeof reportEntries>(
+    []
+  );
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     if (reportEntries.length > 0) {
-      setCurrentEntries(reportEntries.slice(0, 10)); // Set first 10 entries
+      setFilteredEntries(reportEntries);
     }
   }, []);
 
-  const handlePageChange = (entries: typeof reportEntries) => {
-    setCurrentEntries(entries);
-  };
+  useEffect(() => {
+    if (searchQuery === "") {
+      setFilteredEntries(reportEntries);
+    } else {
+      const filtered = reportEntries.filter(
+        (reportEntries) =>
+          reportEntries.reportId.includes(searchQuery) ||
+          reportEntries.fullName.includes(searchQuery)
+      );
+      setFilteredEntries(filtered);
+    }
+  }, [searchQuery]);
 
   return (
     <div className="px-4 py-5 ">
@@ -27,7 +40,10 @@ function Reports() {
             <p className="text-base font-medium text-darkNavy">All Reports</p>
           </div>
           <div className="flex  w-[350px] h-[35px] rounded-lg items-center px-3 gap-1">
-            <Search placeholder="Search by query ID or user’s name" />
+            <Search
+              placeholder="Search by query ID or user’s name"
+              onSearch={setSearchQuery}
+            />
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -85,8 +101,8 @@ function Reports() {
       <div className="flex w-full justify-center mt-5">
         <Pagination
           entriesPerPage={10}
-          entries={reportEntries}
-          onPageChange={handlePageChange}
+          entries={filteredEntries}
+          onPageChange={setCurrentEntries}
         />
       </div>
     </div>
